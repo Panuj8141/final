@@ -42,7 +42,7 @@ document.onload = checkForLogin();
   
   
 
-const headers =[
+export const headers =[
     {
         "image":"caterer-essentail.png",
         "header":"🍽 Caterer's Essentials",
@@ -70,7 +70,7 @@ const headers =[
     }
 ];
 
-const productSection = document.querySelector(".product-section");
+export const productSection = document.querySelector(".product-section");
 
 const userIcon = document.querySelector('.user-icon');
 const dashboard = document.getElementById('userDashboard');

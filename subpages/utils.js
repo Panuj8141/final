@@ -2,6 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getDatabase, ref, set , get , remove , update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword , onAuthStateChanged , signOut} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+import {headers , productSection} from "/script.js"
+
 const firebaseConfig = {
     apiKey: "AIzaSyCzjYdi1BgNqfOZyGOpH1al1cMgEyFPZmY",
     authDomain: "intro-1404a.firebaseapp.com",
@@ -115,8 +117,25 @@ export async function searchForHome(query){
   const productsSource = data;
   
   if(!lowerQuery){
+    productSection.innerHTML = "";
+    headers.forEach(head =>{
+      const imageName = head.image;
+      const imagesrc = imageName.replace("png", "html");
+      const productCard = document.createElement("div");
+      productCard.className="product-card";
+      productCard.innerHTML=`
+          <img src="images/${head.image}" alt="image of product" class="product-image">
+          <h3>${head.header} </h3>
+          <p>${head.description}</p>
+          `;
+          productCard.addEventListener('click' , ()=>{
+              window.location.href=`subpages/${imagesrc}`;
+          });
+      productSection.append(productCard);
+  });
     console.log("no search query");
     return;
+    
   }
   let matchedObjectSet={}
   const matched =[];
@@ -144,8 +163,9 @@ export async function searchForHome(query){
 
     notFoundCard.appendChild(img);
     notFoundCard.appendChild(message);
-
+    document.querySelector(".product-section").innerHTML="";
     document.querySelector(".product-section").appendChild(notFoundCard);
+    
   }else{
     console.log(matched);
     renderProductsCard(matchedObjectSet);

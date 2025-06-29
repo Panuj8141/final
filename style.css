@@ -161,5 +161,15 @@
     .logout:hover {
       color: var(--charcoal);
     }
+    .not-found-card{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .product-not-found-image{
+      height:200px;
+      margin-left:14px
+    }
     
     
