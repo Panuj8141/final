@@ -171,5 +171,22 @@
       height:200px;
       margin-left:14px
     }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 16px rgba(47,74,57,0.3);
+    }
+    .image-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 3; /* or 1 / 1, or 3 / 2 depending on your common format */
+      background-color: var(--pale-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
     
     
