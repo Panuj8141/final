@@ -59,7 +59,7 @@ export function searchInput(array, query) {
   const lowerQuery = query.trim().toLowerCase();
   const currentPage = document.body.dataset.page;
   const productSearchSpace = currentPage === "home" ? data : matchedProducts;
-  console.log(currentPage)
+  
   if (!lowerQuery) {
     // Query is empty, show all products again
     renderProductsCard(matchedProducts); // Show full list
@@ -118,14 +118,15 @@ export async function searchForHome(query){
     console.log("no search query");
     return;
   }
+  let matchedObjectSet={}
   const matched =[];
+
   for(const id in productsSource){
     const searchObject = productsSource[id];
     const searchName = searchObject.name.toLowerCase();
-    console.log(searchName);
-
     if(searchName.includes(lowerQuery)){
       matched.push(searchObject);
+      matchedObjectSet[id] = searchObject;
     } 
   }
   if(matched.length === 0){
@@ -147,6 +148,7 @@ export async function searchForHome(query){
     document.querySelector(".product-section").appendChild(notFoundCard);
   }else{
     console.log(matched);
+    renderProductsCard(matchedObjectSet);
   }
 }
 
@@ -327,7 +329,7 @@ function closeModal(){
 
 // displaying the products in the page
   function renderProductsCard(filteredProducts){
-    productGrid.innerHTML="";
+
     for(const productId in filteredProducts){
       // console.log(filteredProducts[productId]);
       const product = filteredProducts[productId];
@@ -393,10 +395,19 @@ function closeModal(){
 
         
       });
-
       card.append(imageWrapper);
       card.append(h3)
-      productGrid.append(card);
+
+      const isHomePage = document.body.getAttribute('data-page') === 'home';
+
+      if(isHomePage){
+        const productSection = document.querySelector(".product-section");
+        productSection.innerHTML="";
+        productSection.append(card);
+      }else{
+        productGrid.innerHTML="";
+        productGrid.append(card);
+      }
     }
     
   }
